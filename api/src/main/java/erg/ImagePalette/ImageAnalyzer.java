@@ -2,23 +2,19 @@ package erg.ImagePalette;
 
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 public class ImageAnalyzer {
 
-    public ImageData getColorFrequency(String path) {
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("resources/" + path));
-        } catch(IOException ioe) {
-            ioe.printStackTrace();
-        }
+    private static final Logger LOG = Logger.getLogger(ImageAnalyzer.class.getName());
 
-        if(img == null) return null;
-
-        return new ImageData(img.getRGB(0, 0, img.getWidth(), img.getHeight(), null, 0, 0));
-
+    public static ImageData getColorFrequency(String path) throws IOException {
+        BufferedImage img = ImageIO.read(new File("src/main/resources/" + path));
+        LOG.info(img.toString());
+        FastRGB frgb = new FastRGB(img);
+        return new ImageData(frgb.getRGBArray());
     }
-
 }
