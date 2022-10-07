@@ -4,8 +4,12 @@ package erg.ImagePalette;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
+import java.util.logging.Logger;
+
 public class FastRGB
 {
+
+    private static final Logger LOG = Logger.getLogger(FastRGB.class.getName());
 
     private int width;
     private int height;
@@ -47,4 +51,21 @@ public class FastRGB
         for(int i = 0; i < size; i++) pixels[i] = getRGB(i % this.width, i / this.width);
         return pixels;
     }
+
+    public static int distance(int rgb1, int rgb2) {
+        int r1 = rgb1 >> 16 & 0xFF;
+        int g1 = rgb1 >> 8 & 0xFF;
+        int b1 = rgb1 & 0xFF;
+
+        LOG.info("r1: " + r1 + " g1: " + g1 + " b1: " + b1);
+
+        int r2 = rgb2 >> 16 & 0xFF;
+        int g2 = rgb2 >> 8 & 0xFF;
+        int b2 = rgb2 & 0xFF;
+
+        LOG.info("r2: " + r2 + " g2: " + g2 + " b2: " + b2);
+
+        return (int) Math.sqrt(Math.pow(r2 - r1, 2) + Math.pow(g2 - g1, 2) + Math.pow(b2 - b1, 2));
+    }
+
 }

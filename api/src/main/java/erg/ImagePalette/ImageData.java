@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class ImageData {
 
     @JsonProperty int numPixels;
+    @JsonProperty int numDistinctColors;
     // @JsonProperty int[] r, g, b, a;
     @JsonProperty int[] colorSet;
     @JsonProperty int numColorPixels[];
@@ -34,6 +35,7 @@ public class ImageData {
         int l = colorCount.keySet().size();
         this.colorSet = new int[l];
         this.numColorPixels = new int[l];
+        this.numDistinctColors = l;
         Integer[] keys = new Integer[l];
         Iterator<Integer> it = colorCount.keySet().iterator();
         int k = 0;
