@@ -6,8 +6,6 @@ import java.io.IOException;
 
 import java.util.logging.Logger;
 
-import javax.imageio.IIOException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +24,7 @@ class ImagePaletteController {
     @GetMapping("/{file}")
     public ResponseEntity<ImageData> getImageData(@PathVariable("file") String path) {
         try {
-            return new ResponseEntity<ImageData>(ImageAnalyzer.getColorFrequency(path), HttpStatus.OK);
+            return new ResponseEntity<ImageData>(ImageData.fromFile(path), HttpStatus.OK);
         } catch(IOException ioe) {
             ioe.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

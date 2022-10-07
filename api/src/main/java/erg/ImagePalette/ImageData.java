@@ -2,30 +2,30 @@ package erg.ImagePalette;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.logging.Logger;
+
+import javax.imageio.ImageIO;
+
+import java.io.File;
+import java.io.IOException;
+import java.awt.image.BufferedImage;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ImageData {
 
+    private static final Logger LOG = Logger.getLogger(ImageData.class.getName());
+
     @JsonProperty int numPixels;
     @JsonProperty int numDistinctColors;
-    // @JsonProperty int[] r, g, b, a;
     @JsonProperty int[] colorSet;
     @JsonProperty int numColorPixels[];
 
     //Assume inputs are same length
     public ImageData(int[] pixels) {
         this.numPixels = pixels.length;
-        // this.r = new int[numPixels];
-        // this.g = new int[numPixels];
-        // this.b = new int[numPixels];
-        // this.a = new int[numPixels];
         HashMap<Integer, Integer> colorCount = new HashMap<>();
         for(int i = 0; i < numPixels; i++) {
-            // r[i] = pixels[i] >> 24 & 0xFF;
-            // g[i] = pixels[i] >> 16 & 0xFF;
-            // b[i] = pixels[i] >> 8 & 0xFF;
-            // a[i] = pixels[i] & 0xFF;
             if(!colorCount.containsKey(pixels[i])) {
                 colorCount.put(pixels[i], 1);
             } else {
@@ -49,4 +49,12 @@ public class ImageData {
             numColorPixels[i] = colorCount.get(keys[i]);
         }
     }
+
+    public static ImageData fromFile(String path) throws IOException {
+        BufferedImage img = ImageIO.read(new File("src/main/resources/" + path));
+        LOG.info(img.toString());
+        FastRGB frgb = new FastRGB(img);
+        return new ImageData(frgb.getRGBArray());
+    }
+
 }
