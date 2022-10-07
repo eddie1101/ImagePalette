@@ -32,7 +32,7 @@ class ImagePaletteController {
     }
 
     @GetMapping("/distance")
-    public ResponseEntity<Integer> getColorDistance(@RequestParam(name = "r1", defaultValue = "0") int r1,
+    public ResponseEntity<Double> getColorDistance(@RequestParam(name = "r1", defaultValue = "0") int r1,
                                                     @RequestParam(name = "g1", defaultValue = "0") int g1,
                                                     @RequestParam(name = "b1", defaultValue = "0") int b1,
                                                     @RequestParam(name = "r2", defaultValue = "0") int r2,
@@ -52,6 +52,6 @@ class ImagePaletteController {
 
         LOG.info("rgb2: " + Integer.toBinaryString(rgb2));
 
-        return new ResponseEntity<Integer>(FastRGB.distance(rgb1, rgb2), HttpStatus.OK);
+        return new ResponseEntity<Double>(FastRGB.distance(rgb1, rgb2), HttpStatus.OK);
     }
 }

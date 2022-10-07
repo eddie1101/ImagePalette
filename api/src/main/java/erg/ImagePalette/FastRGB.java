@@ -52,7 +52,7 @@ public class FastRGB
         return pixels;
     }
 
-    public static int distance(int rgb1, int rgb2) {
+    public static double distance(int rgb1, int rgb2) {
         int r1 = rgb1 >> 16 & 0xFF;
         int g1 = rgb1 >> 8 & 0xFF;
         int b1 = rgb1 & 0xFF;
@@ -65,7 +65,7 @@ public class FastRGB
 
         LOG.info("r2: " + r2 + " g2: " + g2 + " b2: " + b2);
 
-        return (int) Math.sqrt(Math.pow(r2 - r1, 2) + Math.pow(g2 - g1, 2) + Math.pow(b2 - b1, 2));
+        return Math.sqrt(Math.pow(r2 - r1, 2) + Math.pow(g2 - g1, 2) + Math.pow(b2 - b1, 2));
     }
 
 }
