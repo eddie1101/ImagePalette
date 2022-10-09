@@ -3,7 +3,7 @@ package erg.ImagePalette;
 import java.util.TreeSet;
 import java.util.Comparator;
 
-public class BinaryRGBTree extends TreeSet<Integer> {
+public class ImageColorProfilerImplTree extends TreeSet<Integer> implements ImageColorProfiler {
 
     static class RGBComparator implements Comparator<Integer> {
 
@@ -20,8 +20,13 @@ public class BinaryRGBTree extends TreeSet<Integer> {
         }
     }
 
-    public BinaryRGBTree() {
+    public ImageColorProfilerImplTree() {
         super(new RGBComparator());
+    }
+
+    @Override
+    public ColorProfile getColorProfile(int[] image, double aggregationThreshold) {
+        return null;
     }
 
 }

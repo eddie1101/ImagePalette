@@ -24,7 +24,7 @@ class ImagePaletteController {
     @GetMapping("/{file}")
     public ResponseEntity<ImageData> getImageData(@PathVariable("file") String path) {
         try {
-            return new ResponseEntity<ImageData>(ImageData.fromFile(path), HttpStatus.OK);
+            return new ResponseEntity<ImageData>(ImageData.fromFile(path, new ImageColorProfilerImplArray()), HttpStatus.OK);
         } catch(IOException ioe) {
             ioe.printStackTrace();
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
